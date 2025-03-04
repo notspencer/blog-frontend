@@ -25,14 +25,15 @@ const PostDetails = ({ posts, updatePost, deletePost }) => {
   };
 
   return (
-    <div className="p-4 max-w-md mx-auto">
-      <h2 className="text-xl font-bold">{post.title}</h2>
-      <p className="mt-2">{post.content}</p>
-      <div className="mt-4 space-x-2">
-        <button onClick={handleUpdate} className="bg-yellow-500 text-white p-2 rounded">Update</button>
-        <button onClick={handleDelete} className="bg-red-500 text-white p-2 rounded">Delete</button>
-      </div>
-    </div>
+<div className="card bg-gray-800 shadow-xl p-4">
+  <h2 className="text-2xl font-bold text-blue-400">{post.title}</h2>
+  <p className="mt-2 text-gray-300">{post.content}</p>
+  <div className="mt-4 space-x-2">
+    <button onClick={handleUpdate} className="btn btn-warning">Update</button>
+    <button onClick={handleDelete} className="btn btn-error">Delete</button>
+  </div>
+</div>
+
   );
 };
 
