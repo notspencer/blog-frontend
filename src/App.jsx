@@ -7,7 +7,7 @@ function App() {
   const [posts, setPosts] = useState([]);
 
   const addPost = (post) => {
-    setPosts([...posts, post]);
+    setPosts([...posts, { ...post, id: posts.length + 1 }]);
   };
 
   const updatePost = (id, newTitle, newContent) => {
@@ -20,16 +20,28 @@ function App() {
 
   return (
     <Router>
-      <nav className="p-4 bg-gray-200">
-        <Link to="/" className="mr-4">Home</Link>
-        <Link to="/create">Create Post</Link>
-      </nav>
+      <div className="min-h-screen bg-gray-900 text-white">
+        <nav className="p-6 bg-gray-800 shadow-md flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-blue-400">My Modern Blog</h1>
+          <div className="space-x-6">
+            <Link to="/" className="text-lg hover:text-blue-400">Home</Link>
+            <Link to="/create" className="text-lg hover:text-blue-400">Create Post</Link>
+          </div>
+        </nav>
 
-      <Routes>
-        <Route path="/" element={<h1 className="p-4">Welcome to the Blog</h1>} />
-        <Route path="/create" element={<CreatePost addPost={addPost} />} />
-        <Route path="/post/:id" element={<PostDetails posts={posts} updatePost={updatePost} deletePost={deletePost} />} />
-      </Routes>
+        <div className="p-8 max-w-4xl mx-auto">
+          <Routes>
+            <Route path="/" element={
+              <div className="text-center">
+                <h1 className="text-4xl font-bold mb-6">Welcome to the Blog</h1>
+                <p className="text-lg text-gray-300">Share your thoughts, write stories, and explore amazing content.</p>
+              </div>
+            } />
+            <Route path="/create" element={<CreatePost addPost={addPost} />} />
+            <Route path="/post/:id" element={<PostDetails posts={posts} updatePost={updatePost} deletePost={deletePost} />} />
+          </Routes>
+        </div>
+      </div>
     </Router>
   );
 }
