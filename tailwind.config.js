@@ -1,13 +1,14 @@
 // Import the daisyui plugin
-import daisyui from 'daisyui';
+import daisyui from "daisyui";
 
 export default {
-    content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
-    theme: {
-        extend: {},
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ["Poppins", "sans-serif"], // Google Font "Poppins"
+      },
     },
-    plugins: [daisyui],
-    daisyui: {
-        themes: ['dark'], // Add this line to ensure dark mode is applied
-    },
+  },
+  plugins: [daisyui],
 };
