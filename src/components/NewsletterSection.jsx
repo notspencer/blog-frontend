@@ -58,15 +58,28 @@ export default function NewsletterSection() {
         };
     }, [mouseX, mouseY]);
 
-    return (
-        <section
-            ref={newsletterRef}
-            className="relative bg-white py-16 px-6 md:px-24 lg:px-18 text-center overflow-hidden"
-            style={{
-                cursor: 'none', // Hide default cursor
-                background: `url('src/assets/wave.svg') no-repeat center bottom`,
-                backgroundSize: 'cover',
-            }} // Wave SVG background
+
+  return (
+    <section
+      ref={newsletterRef}
+      className="relative bg-white py-24 md:px-24 lg:px-18 text-center overflow-hidden mb-6"
+      style={{
+        cursor: "none", // Hide default cursor
+        background: `url('src/assets/wave.svg') no-repeat center bottom`,
+        backgroundSize: "cover",
+      }} // Wave SVG background
+    >
+      {/* Custom Cursor (Paper Plane) */}
+      {isCursorVisible && (
+        <motion.div
+          className="fixed top-0 left-0 pointer-events-none z-50"
+          style={{
+            x: smoothX,
+            y: smoothY,
+            scale: cursorVariant === "hover" ? 1.8 : 1.3, // Enlarged paper plane
+            opacity: cursorVariant === "hover" ? 1 : 0.7,
+          }}
+
         >
             {/* Custom Cursor (Paper Plane) */}
             {isCursorVisible && (
@@ -96,20 +109,17 @@ export default function NewsletterSection() {
                 </motion.div>
             )}
 
-            {/* Animated Heading Moving Right to Left */}
-            <div className="relative overflow-hidden w-full">
-                <motion.h2
-                    className="text-4xl md:text-6xl font-bold text-green-900 tracking-wide whitespace-nowrap"
-                    animate={{ x: ['100%', '-100%'] }}
-                    transition={{
-                        repeat: Infinity,
-                        duration: 10,
-                        ease: 'linear',
-                    }}
-                >
-                    Stay up to date
-                </motion.h2>
-            </div>
+      {/* Animated Heading Moving Right to Left */}
+      <div className="relative overflow-hidden w-full">
+        <motion.h2
+          className="text-4xl py-14 font-extrabold drop-shadow-lg md:text-6xl text-green-900 tracking-wide whitespace-nowrap"
+          animate={{ x: ["100%", "-100%"] }}
+          transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
+        >
+          Do you have a great place in mind?
+        </motion.h2>
+      </div>
+
 
             {/* Description */}
             <motion.p

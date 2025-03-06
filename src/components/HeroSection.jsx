@@ -2,12 +2,13 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const HeroSection = () => {
-    return (
-        <motion.section
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1 }}
-            className="relative bg-[#FAD2B7] min-h-[500px] flex items-center"
+  return (
+    <motion.section
+      initial={{ opacity: 0, x: -50 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 1 }}
+      className="relative bg-[#FAD2B7] min-h-[500px] flex items-center"
+   
         >
             <div className="container mx-auto grid md:grid-cols-2 px-8">
                 <div className="flex flex-col justify-center relative">
