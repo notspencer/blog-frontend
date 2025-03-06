@@ -1,50 +1,89 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const CreatePost = ({ addPost }) => {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const navigate = useNavigate();
+const CreatePost = () => {
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const [cover, setCover] = useState('');
+    const [author, setAuthor] = useState('Smith Jane');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!title || !content) return;
+    // Handle form submission
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setError(null);
 
-    // Creating a new post object
-    const newPost = { id: Date.now(), title, content };
-    
-    // Saving it using the function received as a prop
-    addPost(newPost);
+        const newPost = { title, content, cover, author_id: '2' };
 
-    // Redirecting to the home page
-    navigate("/");
-  };
+        try {
+            const response = await fetch('http://localhost:8080/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newPost),
+            });
 
-  return (
-    <div className="p-4 max-w-md mx-auto">
-      <h2 className="text-xl font-bold mb-4">Create a New Post</h2>
-      <form onSubmit={handleSubmit} className="flex flex-col space-y-2">
-      <input
-  type="text"
-  placeholder="Title"
-  value={title}
-  onChange={(e) => setTitle(e.target.value)}
-  className="input input-bordered w-full"
-/>
-<textarea
-  placeholder="Content"
-  value={content}
-  onChange={(e) => setContent(e.target.value)}
-  className="textarea textarea-bordered w-full"
-/>
+            if (!response.ok) {
+                throw new Error('Failed to create post');
+            }
 
-<button type="submit" className="btn btn-primary">
-  Create Post
-</button>
+            navigate('/'); // Redirect to home after successful creation
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-      </form>
-    </div>
-  );
+    return (
+        <div className="max-w-4xl mx-auto px-4 py-12">
+            <h2 className="text-3xl font-bold mb-6">Create a New Blog Post</h2>
+            {error && <p className="text-red-500">Error: {error}</p>}
+            <form onSubmit={handleSubmit} className="space-y-4">
+                <input
+                    type="text"
+                    placeholder="Title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    className="w-full p-2 border rounded"
+                    required
+                />
+                <textarea
+                    placeholder="Content"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    className="w-full p-2 border rounded h-40"
+                    required
+                ></textarea>
+                <input
+                    type="text"
+                    placeholder="Cover Image URL"
+                    value={cover}
+                    onChange={(e) => setCover(e.target.value)}
+                    className="w-full p-2 border rounded"
+                />
+                <input
+                    type="text"
+                    placeholder="Author Name"
+                    value={author}
+                    onChange={(e) => setAuthor(e.target.value)}
+                    className="w-full p-2 border rounded"
+                    disabled
+                />
+                <button
+                    type="submit"
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                    disabled={loading}
+                >
+                    {loading ? 'Creating...' : 'Create Post'}
+                </button>
+            </form>
+        </div>
+    );
 };
 
 export default CreatePost;
