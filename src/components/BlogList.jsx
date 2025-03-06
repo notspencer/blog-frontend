@@ -1,85 +1,89 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const BlogList = () => {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [showAll, setShowAll] = useState(false);
-  const navigate = useNavigate();
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [showAll, setShowAll] = useState(false);
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await fetch("http://localhost:8080/posts");
+    useEffect(() => {
+        const fetchPosts = async () => {
+            try {
+                const response = await fetch('http://localhost:8080/posts');
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch posts");
-        }
+                if (!response.ok) {
+                    throw new Error('Failed to fetch posts');
+                }
 
-        const data = await response.json();
-        setPosts(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+                const data = await response.json();
+                setPosts(data);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
 
-    fetchPosts();
-  }, []);
+        fetchPosts();
+    }, []);
 
-  if (loading) return <p className="text-center">Loading...</p>;
-  if (error) return <p className="text-center text-red-500">Error: {error}</p>;
+    if (loading) return <p className="text-center">Loading...</p>;
+    if (error)
+        return <p className="text-center text-red-500">Error: {error}</p>;
 
-  const visiblePosts = showAll ? posts : posts.slice(0, 4);
+    const visiblePosts = showAll ? posts : posts.slice(0, 4);
 
-  return (
-    <div className="max-w-6xl mx-auto px-4 pt-6">
-      <section className="relative bg-white py-16 px-6 md:px-24 lg:px-18 text-center overflow-hidden">
-        <h2 className="text-3xl text-[#173A2F] pb-16 font-extrabold drop-shadow-lg">
-          Wander Where the Wi-Fi Is Weak!
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {visiblePosts.map((post) => (
-            <div
-              key={post.id}
-              className="group cursor-pointer transition-transform transform hover:scale-105"
-            >
-              <a href={`/posts/${post.id}`} className="block relative">
-                {post.cover && (
-                  <div className="w-28 h-28 rounded-full border-4 border-orange-400 overflow-hidden mx-auto">
-                    <img
-                      src={post.cover}
-                      alt={post.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                    />
-                  </div>
-                )}
+    return (
+        <div className="max-w-6xl mx-auto px-4 pt-6">
+            <section className="relative bg-white py-16 px-6 md:px-24 lg:px-18 text-center overflow-hidden">
+                <h2 className="text-3xl text-[#173A2F] pb-16 font-extrabold drop-shadow-lg">
+                    Building bridges between ideas and execution!
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {visiblePosts.map((post) => (
+                        <div
+                            key={post.id}
+                            className="group cursor-pointer transition-transform transform hover:scale-105"
+                        >
+                            <a
+                                href={`/posts/${post.id}`}
+                                className="block relative"
+                            >
+                                {post.cover && (
+                                    <div className="w-28 h-28 rounded-full border-4 border-orange-400 overflow-hidden mx-auto">
+                                        <img
+                                            src={post.cover}
+                                            alt={post.title}
+                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                        />
+                                    </div>
+                                )}
 
-                <h3 className="text-xl font-semibold text-center mt-2 group-hover:text-orange-600 transition-colors duration-300">
-                  {post.title}
-                </h3>
-                <div className="flex justify-center mt-2">
-                  <span className="w-20 border-t-2 border-dotted border-orange-400"></span>
+                                <h3 className="text-xl font-semibold text-center mt-2 group-hover:text-orange-600 transition-colors duration-300">
+                                    {post.title}
+                                </h3>
+                                <div className="flex justify-center mt-2">
+                                    <span className="w-20 border-t-2 border-dotted border-orange-400"></span>
+                                </div>
+                            </a>
+                        </div>
+                    ))}
                 </div>
-              </a>
-            </div>
-          ))}
+                {!showAll && posts.length > 4 && (
+                    <div className="text-center mt-8">
+                        <button
+                            onClick={() => navigate('/posts')}
+                            className="bg-orange-500 text-white px-6 py-2 rounded-full shadow-md hover:bg-orange-600 transition-all duration-300"
+                        >
+                            View More Posts
+                        </button>
+                    </div>
+                )}
+            </section>
         </div>
-        {!showAll && posts.length > 4 && (
-          <div className="text-center mt-8">
-            <button
-              onClick={() => navigate("/posts")}
-              className="bg-orange-500 text-white px-6 py-2 rounded-full shadow-md hover:bg-orange-600 transition-all duration-300"
-            >
-              View More Posts
-            </button>
-          </div>
-        )}
-      </section>
-    </div>
-  );
+    );
 };
 
 export default BlogList;
