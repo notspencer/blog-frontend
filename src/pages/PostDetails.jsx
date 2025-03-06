@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import RecentPosts from "../components/RecentPosts";
@@ -22,17 +23,19 @@ const PostDetails = () => {
           throw new Error("Failed to fetch post details");
         }
 
-        const data = await response.json();
-        setPost(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
 
-    fetchPost();
-  }, [id]);
+                const data = await response.json();
+                setPost(data);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchPost();
+    }, [id]);
+
 
   // Handle delete functionality
   const handleDelete = async () => {
@@ -42,11 +45,12 @@ const PostDetails = () => {
         method: "DELETE",
       });
 
-      if (!response.ok) {
-        throw new Error("Failed to delete the post");
-      }
 
-      // Show success popup after deletion
+            if (!response.ok) {
+                throw new Error('Failed to delete the post');
+            }
+
+ // Show success popup after deletion
       setSuccessMessage("Post deleted successfully!");
       setShowSuccessModal(true);
 
