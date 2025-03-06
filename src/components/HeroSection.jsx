@@ -12,7 +12,7 @@ const HeroSection = () => {
       <div className="container mx-auto grid md:grid-cols-2 px-8">
         <div className="flex flex-col justify-center relative">
           <p className="text-xl text-[#4B4B4B] font-medium">Planen</p>
-          <h2 className="text-5xl font-bold text-[#173A2F] mt-2 font-extrabold drop-shadow-sm">
+          <h2 className="text-5xl text-[#173A2F] mt-2 font-extrabold drop-shadow-sm">
             Blogs & Reiseguides
           </h2>
         </div>

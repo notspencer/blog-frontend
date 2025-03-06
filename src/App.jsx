@@ -6,9 +6,9 @@ import Home from "./pages/Home";
 import CreatePost from "./pages/CreatePost";
 import PostDetails from "./pages/PostDetails";
 import Blog from "./pages/Blog";
-import HeroSection from "./components/HeroSection";
 
 import UpdatePost from "./components/UpdatePost";
+import NewsletterSection from "./components/NewsletterSection";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -34,7 +34,6 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <HeroSection />
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -44,7 +43,7 @@ function App() {
 
         <Route path="/posts/update/:id" element={<UpdatePost />} />
       </Routes>
-
+      <NewsletterSection />
       <Footer />
     </Router>
   );

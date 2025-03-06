@@ -55,7 +55,7 @@ export default function NewsletterSection() {
   return (
     <section
       ref={newsletterRef}
-      className="relative bg-white py-16 px-6 md:px-24 lg:px-18 text-center overflow-hidden"
+      className="relative bg-white py-24 md:px-24 lg:px-18 text-center overflow-hidden mb-6"
       style={{
         cursor: "none", // Hide default cursor
         background: `url('src/assets/wave.svg') no-repeat center bottom`,
@@ -93,11 +93,11 @@ export default function NewsletterSection() {
       {/* Animated Heading Moving Right to Left */}
       <div className="relative overflow-hidden w-full">
         <motion.h2
-          className="text-4xl md:text-6xl font-bold text-green-900 tracking-wide whitespace-nowrap"
+          className="text-4xl py-14 font-extrabold drop-shadow-lg md:text-6xl text-green-900 tracking-wide whitespace-nowrap"
           animate={{ x: ["100%", "-100%"] }}
           transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
         >
-          Stay up to date
+          Do you have a great place in mind?
         </motion.h2>
       </div>
 

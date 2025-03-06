@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import NewsletterSection from "../components/NewsletterSection";
-
 const BlogList = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -37,10 +35,10 @@ const BlogList = () => {
   const visiblePosts = showAll ? posts : posts.slice(0, 4);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
+    <div className="max-w-6xl mx-auto px-4 pt-6">
       <section className="relative bg-white py-16 px-6 md:px-24 lg:px-18 text-center overflow-hidden">
-        <h2 className="text-3xl font-bold text-center mb-8">
-          More Information
+        <h2 className="text-3xl text-[#173A2F] pb-16 font-extrabold drop-shadow-lg">
+          Wander Where the Wi-Fi Is Weak!
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {visiblePosts.map((post) => (
@@ -80,7 +78,6 @@ const BlogList = () => {
           </div>
         )}
       </section>
-      <NewsletterSection />;
     </div>
   );
 };
